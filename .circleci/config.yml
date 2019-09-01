@@ -3,7 +3,7 @@ version: 2
 jobs:
   acceptance-test:
     machine: true
-    working_directory: /home/circleci/rook
+    working_directory: /home/circleci/.go/src/github.com/rook/rook
     environment:
     - DEBIAN_FRONTEND: noninteractive
     - TERM: dumb
