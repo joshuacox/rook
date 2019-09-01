@@ -9,6 +9,7 @@ jobs:
     - TERM: dumb
     - GO_VERSION: 1.12.9
     - GOPATH: /home/circleci/.go
+    - KUBE_VERSION: v1.15.3
     steps:
     - checkout
     - run:
@@ -45,10 +46,12 @@ jobs:
     - run:
         name: Build Rook
         command: |
+          export PATH=${HOME}/.go/bin/:${PATH}
           make build
     - run:
         name: Rook Integration Tests
         command: |
+          export PATH=${HOME}/.go/bin/:${PATH}
           _output/tests/linux_amd64/integration -test.v
 workflows:
   version: 2
