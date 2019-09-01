@@ -8,12 +8,19 @@ jobs:
     - DEBIAN_FRONTEND: noninteractive
     - TERM: dumb
     - GO_VERSION: 1.12.9
+    - GOPATH: /home/circleci/.go
     steps:
     - checkout
     - run:
         name: upgrade GO
         command: |
           go get golang.org/dl/go$GO_VERSION
+          cd $GOPATH/bin
+          ./go$GO_VERSION download
+          ln -s go$GO_VERSION go
+          export PATH=${HOME}/.go/bin/:${PATH}
+          which go
+          go version
     - run:
         name: download
         command: sudo curl -Lf https://github.com/DataDog/pupernetes/releases/download/v0.10.0/pupernetes
