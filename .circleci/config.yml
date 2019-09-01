@@ -7,8 +7,13 @@ jobs:
     environment:
     - DEBIAN_FRONTEND: noninteractive
     - TERM: dumb
+    - GO_VERSION: 1.12.9
     steps:
     - checkout
+    - run:
+        name: upgrade GO
+        command: |
+          go get golang.org/dl/go$GO_VERSION
     - run:
         name: download
         command: sudo curl -Lf https://github.com/DataDog/pupernetes/releases/download/v0.10.0/pupernetes
