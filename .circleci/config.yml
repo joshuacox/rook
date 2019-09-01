@@ -44,6 +44,28 @@ jobs:
           helm init
           helm repo add banzaicloud-stable https://kubernetes-charts.banzaicloud.com/
     - run:
+        name: Try Rook
+        command: |
+          export PATH=${HOME}/.go/bin/:${PATH}
+          cd cluster/examples/kubernetes/ceph/
+          kubectl create -f common.yaml
+          kubectl create -f operator.yaml
+          kubectl create -f cluster-test.yaml
+          kubectl create -f pool-test.yaml
+          kubectl create -f toolbox.yaml
+          kubectl create -f filesystem-test.yaml
+          kubectl create -f object-test.yaml
+          kubectl create -f object-user.yaml
+          kubectl create -f csi/rbd/storageclass.yaml
+          cd ../
+          kubectl create -f mysql.yaml
+          kubectl create -f wordpress.yaml
+          kubectl get pods
+          kubectl get pvc
+          sync
+          sleep 120
+          kubectl describe pvc mysql-pv-claim
+    - run:
         name: Build Rook
         command: |
           export PATH=${HOME}/.go/bin/:${PATH}
