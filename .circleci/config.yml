@@ -1,0 +1,45 @@
+# Orb 'banzaicloud/helm@0.0.5' resolved to 'banzaicloud/helm@0.0.5'
+version: 2
+jobs:
+  acceptance-test:
+    machine: true
+    working_directory: /home/circleci/rook
+    environment:
+    - DEBIAN_FRONTEND: noninteractive
+    - TERM: dumb
+    steps:
+    - checkout
+    - run:
+        name: download
+        command: sudo curl -Lf https://github.com/DataDog/pupernetes/releases/download/v0.10.0/pupernetes
+          -o /usr/local/bin/pupernetes && sudo chmod +x /usr/local/bin/pupernetes
+    - run:
+        name: apt
+        command: sudo apt-get update -qq && sudo apt-get install -yqq systemd
+    - run:
+        name: run
+        command: sudo /usr/local/bin/pupernetes daemon run sandbox/ --job-type systemd
+          --kubectl-link /usr/local/bin/kubectl --kubeconfig-path $HOME/.kube/config
+          --dns-check
+    - run:
+        name: kubectl
+        command: kubectl get all
+    - run:
+        name: Setup helm
+        command: |
+          curl -L https://git.io/get_helm.sh | bash
+          helm init
+          helm repo add banzaicloud-stable https://kubernetes-charts.banzaicloud.com/
+    - run:
+        name: Build Rook
+        command: |
+          make build
+    - run:
+        name: Rook Integration Tests
+        command: |
+          _output/tests/linux_amd64/integration -test.v
+workflows:
+  version: 2
+  ci:
+    jobs:
+    - acceptance-test
