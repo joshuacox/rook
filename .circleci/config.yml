@@ -9,7 +9,7 @@ jobs:
     - TERM: dumb
     - GO_VERSION: 1.12.9
     - GOPATH: /home/circleci/.go
-    - HYPERKUBE_VERSION: v1.14.6
+    - HYPERKUBE_VERSION: 1.14.6
     steps:
     - checkout
     - run:
