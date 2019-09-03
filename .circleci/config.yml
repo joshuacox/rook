@@ -36,7 +36,10 @@ jobs:
           --dns-check
     - run:
         name: kubectl
-        command: kubectl get all
+        command: |
+        kubectl version
+        kubectl get all
+        kubectl get nodes
     - run:
         name: Setup helm
         command: |
