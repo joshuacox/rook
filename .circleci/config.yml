@@ -74,7 +74,7 @@ jobs:
         name: Rook Integration Tests
         command: |
           export PATH=${HOME}/.go/bin/:${PATH}
-          _output/tests/linux_amd64/integration -test.v
+          echo 'disabled for now --> _output/tests/linux_amd64/integration -test.v'
 workflows:
   version: 2
   ci:

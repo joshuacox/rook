@@ -25,5 +25,5 @@ install:
 script:
   - sudo /usr/local/bin/pupernetes daemon run sandbox/ --job-type systemd --hyperkube-version $HYPERKUBE_VERSION --kubeconfig-path $HOME/.kube/config --dns-check
   - kubectl get all
-  - cp -a $TRAVIS_BUILD_DIR; /home/travis/gopath/src/github.com/rook/rook/
+  - cp -a $TRAVIS_BUILD_DIR /home/travis/gopath/src/github.com/rook/rook
   - cd /home/travis/gopath/src/github.com/rook/rook/ && make build && _output/tests/linux_amd64/integration -test.v
