@@ -37,9 +37,9 @@ jobs:
     - run:
         name: kubectl
         command: |
-        kubectl version
-        kubectl get all
-        kubectl get nodes
+          kubectl version
+          kubectl get all
+          kubectl get nodes
     - run:
         name: Setup helm
         command: |
