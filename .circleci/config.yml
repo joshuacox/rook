@@ -33,6 +33,7 @@ jobs:
         name: run
         command: sudo /usr/local/bin/pupernetes daemon run sandbox/ --job-type systemd
           --kubectl-link /usr/local/bin/kubectl --kubeconfig-path $HOME/.kube/config
+          --hyperkube-version $HYPERKUBE_VERSION
           --dns-check
     - run:
         name: kubectl
