@@ -27,12 +27,12 @@ spec:
     # size appropriate for monitor data will be used.
     volumeClaimTemplate:
       spec:
-        storageClassName: local-storage
+        storageClassName: gp2
         resources:
           requests:
             storage: 10Gi
   cephVersion:
-    image: ceph/ceph:v14.2.2-20190826
+    image: ceph/ceph:v14.2.3-20190904
     allowUnsupported: false
   dashboard:
     enabled: true
@@ -69,7 +69,12 @@ spec:
             requests:
               storage: 10Gi
           # IMPORTANT: Change the storage class depending on your environment (e.g. local-storage, gp2)
-          storageClassName: generic
+          storageClassName: gp2
           volumeMode: Block
           accessModes:
             - ReadWriteOnce
+  disruptionManagement:
+    managePodBudgets: false
+    osdMaintenanceTimeout: 30
+    manageMachineDisruptionBudgets: false
+    machineDisruptionBudgetNamespace: openshift-machine-api

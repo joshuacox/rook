@@ -83,7 +83,7 @@ func mountUnmountPVCOnPod(k8sh *utils.K8sHelper, podName string, pvcName string,
 		"readOnly": readonly,
 	}
 
-	result, err := k8sh.ResourceOperationFromTemplate(action, getBlockPodDefintion(), config)
+	result, err := k8sh.ResourceOperationFromTemplate(action, getBlockPodDefinition(), config)
 
 	return result, err
 }
@@ -145,7 +145,7 @@ func StartLoadTestCluster(t func() *testing.T, namespace string) (LoadTestCluste
 	kh, err := utils.CreateK8sHelper(t)
 	require.NoError(t(), err)
 
-	i := installer.NewCephInstaller(t, kh.Clientset, false, installer.VersionMaster, cephv1.CephVersionSpec{Image: "ceph/ceph:v14.2.2-20190826"})
+	i := installer.NewCephInstaller(t, kh.Clientset, false, installer.VersionMaster, cephv1.CephVersionSpec{Image: "ceph/ceph:v14.2.3-20190904"})
 
 	op := LoadTestCluster{i, kh, nil, t, namespace}
 	op.Setup()
@@ -249,7 +249,7 @@ spec:
           claimName: {{.pvcName}}`
 }
 
-func getBlockPodDefintion() string {
+func getBlockPodDefinition() string {
 	return `apiVersion: v1
 kind: Pod
 metadata:

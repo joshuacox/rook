@@ -31,7 +31,6 @@ import (
 	"github.com/rook/rook/pkg/operator/ceph/disruption/controllerconfig"
 
 	cephv1 "github.com/rook/rook/pkg/apis/ceph.rook.io/v1"
-	// metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 const (
@@ -149,7 +148,7 @@ func (r *ReconcileClusterDisruption) reconcile(request reconcile.Request) (recon
 	}
 
 	// get the osds with crush data populated
-	osdDataList, err := r.getOsdDataList(request)
+	osdDataList, err := r.getOsdDataList(request, poolFailureDomain)
 	if err != nil {
 		return reconcile.Result{}, err
 	}
